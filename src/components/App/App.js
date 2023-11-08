@@ -8,7 +8,7 @@ import { ContactForm, Filter, ContactsList } from 'components';
 export class App extends Component {
   state = {
     contacts: [],
-    filter: '',
+    filter: '0',
   };
 
   addContact = ({ name, number }) => {
