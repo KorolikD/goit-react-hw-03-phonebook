@@ -8,7 +8,7 @@ import { ContactForm, Filter, ContactsList } from 'components';
 export class App extends Component {
   state = {
     contacts: [],
-    filter: '0',
+    filter: '',
   };
 
   addContact = ({ name, number }) => {
@@ -43,6 +43,18 @@ export class App extends Component {
       name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    parsedContacts && this.setState({ contacts: parsedContacts });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.state.contacts !== prevState.contacts &&
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   render() {
     const { contacts, filter } = this.state;
